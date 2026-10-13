@@ -36,8 +36,10 @@ class MotorJuego {
   void mover(double deltaX) {
     if (estado != EstadoJuego.jugando) return;
     final yAnterior = personaje.y;
+    final xAnterior = personaje.x;
 
     MotorFisica.moverHorizontal(personaje, deltaX, anchoNivel);
+    MotorFisica.resolverColisionLateral(personaje, plataformas, xAnterior);
     MotorFisica.aplicarGravedad(personaje);
     MotorFisica.resolverColisionConPiso(personaje, plataformas, yAnterior);
 

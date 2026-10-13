@@ -71,4 +71,22 @@ void main() {
     final personaje = Personaje(x: 500, y: 0);
     expect(MotorFisica.haLlegadoALaMeta(personaje, 1900), false);
   });
+
+  test('resolverColisionLateral frena al personaje que choca desde la izquierda', () {
+    final personaje = Personaje(x: 80, y: 100);
+    const plataforma = Rectangulo(x: 100, y: 100, ancho: 100, alto: 50);
+
+    MotorFisica.resolverColisionLateral(personaje, [plataforma], 65);
+
+    expect(personaje.x, plataforma.x - personaje.ancho);
+  });
+
+  test('resolverColisionLateral frena al personaje que choca desde la derecha', () {
+    final personaje = Personaje(x: 190, y: 100);
+    const plataforma = Rectangulo(x: 100, y: 100, ancho: 100, alto: 50);
+
+    MotorFisica.resolverColisionLateral(personaje, [plataforma], 205);
+
+    expect(personaje.x, plataforma.x + plataforma.ancho);
+  });
 }

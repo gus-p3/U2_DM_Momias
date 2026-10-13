@@ -20,4 +20,25 @@ void main() {
     momia.patrullar();
     expect(momia.x, 100);
   });
+
+  test('la momia patrulla verticalmente entre limiteArriba y limiteAbajo', () {
+    final momia = Momia(
+      x: 100,
+      y: 150,
+      limiteIzquierdo: 0,
+      limiteDerecho: 300,
+      esVertical: true,
+      velocidadY: 2,
+      limiteArriba: 100,
+      limiteAbajo: 200,
+    );
+
+    momia.patrullar();
+    expect(momia.y, 152);
+
+    // Llevar al limite inferior
+    momia.y = 168; // + 32 de alto = 200 -> limiteAbajo
+    momia.patrullar();
+    expect(momia.velocidadY, -2);
+  });
 }

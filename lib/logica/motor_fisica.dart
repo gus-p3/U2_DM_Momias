@@ -45,6 +45,31 @@ class MotorFisica {
     }
   }
 
+  static void resolverColisionLateral(Personaje personaje, List<Rectangulo> plataformas, double xAnterior) {
+    for (final plataforma in plataformas) {
+      final seTraslapanVerticalmente =
+          personaje.y < plataforma.y + plataforma.alto &&
+          personaje.y + personaje.alto > plataforma.y;
+
+      if (!seTraslapanVerticalmente) continue;
+
+      final veniaDesdeLaIzquierda = xAnterior + personaje.ancho <= plataforma.x;
+      final veniaDesdeLaDerecha = xAnterior >= plataforma.x + plataforma.ancho;
+
+      final ahoraIntersecta =
+          personaje.x + personaje.ancho > plataforma.x &&
+          personaje.x < plataforma.x + plataforma.ancho;
+
+      if (ahoraIntersecta) {
+        if (veniaDesdeLaIzquierda) {
+          personaje.x = plataforma.x - personaje.ancho;
+        } else if (veniaDesdeLaDerecha) {
+          personaje.x = plataforma.x + plataforma.ancho;
+        }
+      }
+    }
+  }
+
   static bool haLlegadoALaMeta(Personaje personaje, double posicionMeta) {
     return personaje.x >= posicionMeta;
   }
